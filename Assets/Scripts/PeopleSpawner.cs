@@ -6,8 +6,6 @@ public class PeopleSpawner : MonoBehaviour
     [SerializeField] private Passerby[] peoplePrefabs;
     [SerializeField] private Transform[] spawnPoints;
     [SerializeField] private Transform parent;
-    [SerializeField, Min(0.01f)] private float minSpawnPeriod = 5f;
-    [SerializeField, Min(0.01f)] private float maxSpawnPeriod = 7f;
 
     private Coroutine spawnCoroutine;
 
@@ -42,7 +40,9 @@ public class PeopleSpawner : MonoBehaviour
             passerby.transform.position = spawnPoint.position;
             passerby.Direction = Vector2.left * Mathf.Sign(spawnPoint.position.x);
 
-            yield return new WaitForSeconds(Random.Range(minSpawnPeriod, maxSpawnPeriod));
+            yield return new WaitForSeconds(Random.Range(
+                GameManager.Config.Passerby.MinSpawnPeriod, 
+                GameManager.Config.Passerby.MaxSpawnPeriod));
         }
     }
 }

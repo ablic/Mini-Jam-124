@@ -4,18 +4,23 @@ using UnityEngine;
 public class Passerby : Character, IInteractable
 {
     [Min(0f)]
-    [SerializeField] private float speedOffset = 1f;
     [SerializeField] private Item favoriteItem;
     [SerializeField] private GameObject heartParticles;
     [SerializeField] private AudioClip[] itemReceivingSounds;
 
+    private float velocity;
+
     public event System.Action Interacted;
+
+    public Transform Transform => transform;
 
     public Vector2 Direction { get; set; }
 
     private void Start()
     {
-        walkSpeed += Random.Range(-speedOffset, speedOffset);
+        velocity = Random.Range(
+            GameManager.Config.Passerby.MinHorizontalVelocity, 
+            GameManager.Config.Passerby.MaxHorizontalVelocity);
     }
 
     private void Update()

@@ -6,18 +6,9 @@ public class Warmth : MonoBehaviour
 {
     [Range(0f, 1f)]
     [SerializeField] private float value = 0.5f;
-    [Min(0f)]
-    [SerializeField] private float selfReduction = 0.05f;
     [SerializeField] private Gradient colorGradient;
     [SerializeField] private Slider slider;
     [SerializeField] private Image fill;
-    [SerializeField] private GameObject winPanel;
-    [SerializeField] private GameObject gameOverPanel;
-    [SerializeField] private AudioSource music;
-    [SerializeField] private AudioClip winSound;
-    [SerializeField] private AudioClip loseSound;
-
-    private bool gameLost = false;
 
     public float Value
     {
@@ -35,38 +26,14 @@ public class Warmth : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Time.timeScale = 1f;
-            SceneManager.LoadScene(0);
-        }
-
-        if (gameLost)
+        if (GameManager.Instance.IsOver)
             return;
 
-        Value -= selfReduction * Time.deltaTime;
+        Value -= GameManager.Config.Warmth.Reduction * Time.deltaTime;
 
         if (value >= 1f)
-            Win();
+            GameManager.Instance.Win();
         else if (Value <= 0f)
-            GameOver();
-    }
-
-    private void Win()
-    {
-        music.Stop();
-        gameLost = true;
-        Time.timeScale = 0f;
-        winPanel.SetActive(true);
-        GetComponent<AudioSource>().PlayOneShot(winSound);
-    }
-
-    private void GameOver()
-    {
-        music.Stop();
-        gameLost = true;
-        Time.timeScale = 0f;
-        gameOverPanel.SetActive(true);
-        GetComponent<AudioSource>().PlayOneShot(loseSound);
+            GameManager.Instance.GameOver();
     }
 }

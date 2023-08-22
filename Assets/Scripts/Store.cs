@@ -1,22 +1,28 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(BoxCollider2D))]
 public class Store : MonoBehaviour, IInteractable
 {
-    [SerializeField] private Item[] itemsForSale;
+    [SerializeField] private Item itemForSale;
     [SerializeField] private AudioClip[] buySounds;
+    [SerializeField] private Image itemView;
 
     public event System.Action Interacted;
+
+    public Transform Transform => transform;
+
+    private void Awake()
+    {
+        itemView.sprite = itemForSale.View;
+    }
 
     public bool TryInteract(Player player)
     {
         if (player.CarriedItem != null)
-        {
-            Debug.Log($"Player already has carried item ({player.CarriedItem.name})");
             return false;
-        }
 
-        player.PickUp(itemsForSale[Random.Range(0, itemsForSale.Length)]);
+        player.PickUp(itemForSale);
         player.PlaySound(buySounds.GetRandomElement());
 
         Interacted?.Invoke();

@@ -1,33 +1,48 @@
-using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine.UI;
+using System.Linq;
+using UnityEngine;
 
 [RequireComponent(typeof(CircleCollider2D))]
 [RequireComponent(typeof(AudioSource))]
 public class Player : Character
 {
-    [SerializeField] private KeyCode interactButton1 = KeyCode.Mouse0;
-    [SerializeField] private KeyCode interactButton2 = KeyCode.Space;
     [SerializeField] private Warmth warmth;
+    [SerializeField] private CircleCollider2D interactionRangeCollider;
 
     private AudioSource audioSource;
-    private Dictionary<Transform, IInteractable> targets = new Dictionary<Transform, IInteractable>();
+    private HashSet<IInteractable> targets = new HashSet<IInteractable>();
 
     public Warmth Warmth => warmth;
+
+    private bool AnyInteractionKeyPressed
+    {
+        get
+        {
+            foreach (var key in GameManager.Config.Player.InteractionKeys)
+                if (Input.GetKeyDown(key))
+                    return true;
+
+            return false;
+        }
+    }
+
     private IInteractable NearestTarget
     {
         get
         {
+            if (targets.Count == 0)
+                return null;
+
             IInteractable nearestTarget = null;
-            float minSqrDistance = Mathf.Infinity;
+            float minSqrDistance = Mathf.Infinity;            
 
             foreach (var item in targets)
             {
-                float sqrDistance = (transform.position - item.Key.position).sqrMagnitude;
+                float sqrDistance = (transform.position - item.Transform.position).sqrMagnitude;
 
                 if (sqrDistance < minSqrDistance)
                 {
-                    nearestTarget = item.Value;
+                    nearestTarget = item;
                     minSqrDistance = sqrDistance;
                 }
             }
@@ -40,6 +55,7 @@ public class Player : Character
     {
         base.Awake();
         audioSource = GetComponent<AudioSource>();
+        UpdateInteractionRange();
     }
 
     private void Update()
@@ -47,42 +63,48 @@ public class Player : Character
         if (Input.GetKeyDown(KeyCode.Escape))
             Application.Quit();
 
-        if (Input.GetKeyDown(interactButton1) || Input.GetKeyDown(interactButton2))
+        if (AnyInteractionKeyPressed)
             Interact();
+
+#if UNITY_EDITOR
+        UpdateInteractionRange();
+#endif
     }
 
     private void FixedUpdate()
     {
-        float inputX = Input.GetAxisRaw("Horizontal");
-        float inputY = Input.GetAxisRaw("Vertical");
+        Vector2 direction = new Vector2(
+            Input.GetAxisRaw("Horizontal"), 
+            Input.GetAxisRaw("Vertical")).normalized;
 
-        Move(new Vector2(inputX, inputY));
+        Move(new Vector2(
+            direction.x * GameManager.Config.Player.HorizontalVelocity,
+            direction.y * GameManager.Config.Player.VerticalVelocity));
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent(out IInteractable target) && !targets.ContainsKey(collision.transform))
-            targets.Add(collision.transform, target);
+        if (collision.TryGetComponent(out IInteractable interactable))
+            targets.Add(interactable);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.TryGetComponent(out IInteractable target) && targets.ContainsKey(collision.transform))
-            targets.Remove(collision.transform);
+        if (collision.TryGetComponent(out IInteractable interactable))
+            targets.Remove(interactable);
     }
 
     public void Interact()
     {
-        if (targets.Count == 0)
+        IInteractable interactable = NearestTarget;
+
+        if (interactable == null)
             return;
 
-        if (!NearestTarget.TryInteract(this))
+        if (!interactable.TryInteract(this))
         {
-            foreach (var target in targets.Values)
-            {
-                if (target.TryInteract(this))
-                    return;
-            }
+            targets.Remove(interactable);
+            Interact();
         }
     }
 
@@ -90,4 +112,25 @@ public class Player : Character
     {
         audioSource.PlayOneShot(audioClip);
     }
+
+    private void UpdateInteractionRange()
+    {
+        interactionRangeCollider.radius = GameManager.Config.Player.InteractionRange;
+    }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    { 
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, interactionRangeCollider.radius);
+
+        var target = NearestTarget;
+
+        if (target != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(target.Transform.position, 0.2f);
+        }
+    }
+#endif
 }

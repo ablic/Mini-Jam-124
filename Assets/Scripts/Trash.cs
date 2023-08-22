@@ -8,6 +8,8 @@ public class Trash : MonoBehaviour, IInteractable
 
     public event Action Interacted;
 
+    public Transform Transform => transform;
+
     public bool TryInteract(Player player)
     {
         if (player.CarriedItem != null)
