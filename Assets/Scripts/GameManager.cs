@@ -1,3 +1,4 @@
+using ReactiveProperties;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -5,7 +6,8 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private GameConfiguration activeConfiguration;
+    [SerializeField] private IntegerProperty timeToWin;
+    [SerializeField] private PropertySet activeConfiguration;
     [SerializeField] private Text timeToWinText;
     [SerializeField] private AudioSource music;
     [SerializeField] private GameObject winPanel;
@@ -16,7 +18,7 @@ public class GameManager : MonoBehaviour
     private Coroutine timerCoroutine;
 
     public static GameManager Instance { get; private set; }
-    public static GameConfiguration Config => Instance.activeConfiguration;
+    public static PropertySet Config => Instance.activeConfiguration;
 
     public bool IsOver { get; private set; } = false;
 
@@ -55,9 +57,9 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator Timer()
     {
-        timeToWinText.text = Config.Shared.TimeToWin.ToString();
+        timeToWinText.text = timeToWin.Value.ToString();
 
-        for (int time = Config.Shared.TimeToWin - 1; time > 0; time--)
+        for (int time = timeToWin.Value - 1; time > 0; time--)
         {
             yield return new WaitForSeconds(1f);
             timeToWinText.text = time.ToString();

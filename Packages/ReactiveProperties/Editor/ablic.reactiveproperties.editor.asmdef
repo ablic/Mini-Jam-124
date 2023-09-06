@@ -1,0 +1,16 @@
+{
+    "name": "ablic.reactiveproperties.editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:c02a4a873ab2eb44a813f0b17c1d34a7"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

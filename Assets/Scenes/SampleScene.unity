@@ -1390,6 +1390,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value: 0.6
+  reduction: {fileID: 11400000, guid: 2d2f450ca4ec93e44be9050ca6f94dd7, type: 2}
   colorGradient:
     serializedVersion: 2
     key0: {r: 1, g: 1, b: 1, a: 1}
@@ -1997,6 +1998,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cargo: {fileID: 745026368}
+  horizontalVelocity: {fileID: 11400000, guid: 2b6885cf544419b468998be499a92c67, type: 2}
+  verticalVelocity: {fileID: 11400000, guid: 86e07dee83feee342822ab43d18bd2ec, type: 2}
+  interactionRange: {fileID: 11400000, guid: 86e07dee83feee342822ab43d18bd2ec, type: 2}
+  playerInteractionKeys: {fileID: 11400000, guid: c51b6f14e46045841a4ee98317482e5e, type: 2}
   warmth: {fileID: 618510741}
   interactionRangeCollider: {fileID: 777926776}
 --- !u!58 &777926776
@@ -2767,6 +2772,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63b42fb5af4fc1f42a2f130c35ff62ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeToWin: {fileID: 11400000, guid: 134c06fa6f5a9c24c9a0bfc820593c7b, type: 2}
   activeConfiguration: {fileID: 11400000, guid: e505dc8e620ae3b4084901e2effb751d, type: 2}
   timeToWinText: {fileID: 2026294802}
   music: {fileID: 41939152}
@@ -3060,6 +3066,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef615a3105832b64cb8275d5b29cdf55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minSpawnPeriod: {fileID: 11400000, guid: 8fe948d29a9f646408ab3af4c684d2a1, type: 2}
+  maxSpawnPeriod: {fileID: 11400000, guid: a7d14e8f61adeae4f9a672ce85e0ffea, type: 2}
   peoplePrefabs:
   - {fileID: 2984940670370000355, guid: d405bcb33f76e21419f0c38c6e6a125b, type: 3}
   - {fileID: 2984940670370000355, guid: a7771ae29cb5c9c4ab3cc91e6a14ab71, type: 3}
@@ -3073,8 +3081,6 @@ MonoBehaviour:
   - {fileID: 424588395}
   - {fileID: 372798379}
   parent: {fileID: 819756044}
-  minSpawnPeriod: 0.5
-  maxSpawnPeriod: 2
 --- !u!1 &1240785310
 GameObject:
   m_ObjectHideFlags: 0

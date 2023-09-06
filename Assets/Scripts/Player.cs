@@ -1,11 +1,15 @@
+using ReactiveProperties;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(CircleCollider2D))]
 [RequireComponent(typeof(AudioSource))]
 public class Player : Character
 {
+    [SerializeField] private FloatProperty horizontalVelocity;
+    [SerializeField] private FloatProperty verticalVelocity;
+    [SerializeField] private FloatProperty interactionRange;
+    [SerializeField] private PropertySet playerInteractionKeys;
     [SerializeField] private Warmth warmth;
     [SerializeField] private CircleCollider2D interactionRangeCollider;
 
@@ -18,9 +22,9 @@ public class Player : Character
     {
         get
         {
-            foreach (var key in GameManager.Config.Player.InteractionKeys)
-                if (Input.GetKeyDown(key))
-                    return true;
+            /*foreach (KeyCodeProperty propoerty in playerInteractionKeys.Properties)
+                if (Input.GetKeyDown(propoerty.Value))
+                    return true;*/
 
             return false;
         }
@@ -78,8 +82,8 @@ public class Player : Character
             Input.GetAxisRaw("Vertical")).normalized;
 
         Move(new Vector2(
-            direction.x * GameManager.Config.Player.HorizontalVelocity,
-            direction.y * GameManager.Config.Player.VerticalVelocity));
+            direction.x * horizontalVelocity.Value,
+            direction.y * verticalVelocity.Value));
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -115,7 +119,7 @@ public class Player : Character
 
     private void UpdateInteractionRange()
     {
-        interactionRangeCollider.radius = GameManager.Config.Player.InteractionRange;
+        interactionRangeCollider.radius = interactionRange.Value;
     }
 
 #if UNITY_EDITOR

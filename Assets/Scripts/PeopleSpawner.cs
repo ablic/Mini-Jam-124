@@ -1,8 +1,11 @@
+using ReactiveProperties;
 using System.Collections;
 using UnityEngine;
 
 public class PeopleSpawner : MonoBehaviour
 {
+    [SerializeField] private FloatProperty minSpawnPeriod;
+    [SerializeField] private FloatProperty maxSpawnPeriod;
     [SerializeField] private Passerby[] peoplePrefabs;
     [SerializeField] private Transform[] spawnPoints;
     [SerializeField] private Transform parent;
@@ -41,8 +44,8 @@ public class PeopleSpawner : MonoBehaviour
             passerby.Direction = Vector2.left * Mathf.Sign(spawnPoint.position.x);
 
             yield return new WaitForSeconds(Random.Range(
-                GameManager.Config.Passerby.MinSpawnPeriod, 
-                GameManager.Config.Passerby.MaxSpawnPeriod));
+                minSpawnPeriod.Value, 
+                maxSpawnPeriod.Value));
         }
     }
 }

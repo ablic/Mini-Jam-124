@@ -1,9 +1,11 @@
+using ReactiveProperties;
 using UnityEngine;
 
 [RequireComponent(typeof(CircleCollider2D))]
 public class Passerby : Character, IInteractable
 {
-    [Min(0f)]
+    [SerializeField] private FloatProperty minHorizontalVelocity;
+    [SerializeField] private FloatProperty maxHorizontalVelocity;
     [SerializeField] private Item favoriteItem;
     [SerializeField] private GameObject heartParticles;
     [SerializeField] private AudioClip[] itemReceivingSounds;
@@ -19,8 +21,8 @@ public class Passerby : Character, IInteractable
     private void Start()
     {
         velocity = Random.Range(
-            GameManager.Config.Passerby.MinHorizontalVelocity, 
-            GameManager.Config.Passerby.MaxHorizontalVelocity);
+            minHorizontalVelocity.Value,
+            maxHorizontalVelocity.Value);
     }
 
     private void Update()
