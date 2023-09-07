@@ -6,24 +6,16 @@ public class Passerby : Character, IInteractable
 {
     [SerializeField] private FloatProperty minHorizontalVelocity;
     [SerializeField] private FloatProperty maxHorizontalVelocity;
+    [SerializeField] private FloatProperty warmthIncrease;
     [SerializeField] private Item favoriteItem;
     [SerializeField] private GameObject heartParticles;
     [SerializeField] private AudioClip[] itemReceivingSounds;
-
-    private float velocity;
 
     public event System.Action Interacted;
 
     public Transform Transform => transform;
 
     public Vector2 Direction { get; set; }
-
-    private void Start()
-    {
-        velocity = Random.Range(
-            minHorizontalVelocity.Value,
-            maxHorizontalVelocity.Value);
-    }
 
     private void Update()
     {
@@ -42,7 +34,7 @@ public class Passerby : Character, IInteractable
             (favoriteItem == player.CarriedItem || favoriteItem == null))
         {
             PickUp(player.CarriedItem);
-            player.Warmth.Value += 0.2f;
+            player.Warmth.Value += warmthIncrease.Value;
             player.Drop();
             player.PlaySound(itemReceivingSounds.GetRandomElement());
             heartParticles.SetActive(true);

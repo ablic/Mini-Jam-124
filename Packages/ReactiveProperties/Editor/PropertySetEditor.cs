@@ -10,6 +10,22 @@ namespace ReactiveProperties.Editor
         private Dictionary<ReactivePropertyBase, ReactivePropertyEditor> cachedEditors = new();
         private Dictionary<ReactivePropertyBase, SerializedObject> cachedSerializedObjects = new();
 
+        private void Awake()
+        {
+            Undo.undoRedoPerformed += () =>
+            {
+                serializedObject.Update();
+
+                foreach (var editor in cachedEditors.Values)
+                    editor.serializedObject.Update();
+
+                foreach (var obj in cachedSerializedObjects.Values)
+                    obj.Update();
+            };
+
+            Debug.Log("UNDO");
+        }
+
         public override void OnInspectorGUI()
         {
             SerializedProperty arrayProperty = serializedObject.FindProperty("<Properties>k__BackingField");
@@ -42,14 +58,22 @@ namespace ReactiveProperties.Editor
 
                     EditorGUILayout.LabelField(reactiveProperty.name, EditorStyles.boldLabel);
                     EditorGUILayout.PropertyField(cachedSerializedObjects[reactiveProperty].FindProperty("value"), new GUIContent());
-                    cachedSerializedObjects[reactiveProperty].ApplyModifiedProperties();
                 }
             }
 
             EditorGUILayout.LabelField(new string('-', 100));
 
             if (EditorGUI.EndChangeCheck())
+            {
                 serializedObject.ApplyModifiedProperties();
+
+                foreach (var editor in cachedEditors.Values)
+                    editor.serializedObject.ApplyModifiedProperties();
+
+                foreach (var obj in cachedSerializedObjects.Values)
+                    obj.ApplyModifiedProperties();
+            }
+
         }
     }
 }

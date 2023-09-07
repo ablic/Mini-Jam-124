@@ -67,7 +67,8 @@ public class Player : Character
         if (Input.GetKeyDown(KeyCode.Escape))
             Application.Quit();
 
-        if (AnyInteractionKeyPressed)
+        //if (AnyInteractionKeyPressed)
+        if (Input.GetKeyDown(KeyCode.Space))
             Interact();
 
 #if UNITY_EDITOR

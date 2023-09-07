@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3e5f56047a5b6e842bf3c9b29e0e5359, type: 3}
-  m_Name: Game Configuration
+  m_Name: Player
   m_EditorClassIdentifier: 
   <Properties>k__BackingField:
-  - {fileID: 11400000, guid: 134c06fa6f5a9c24c9a0bfc820593c7b, type: 2}
-  - {fileID: 11400000, guid: 2d2f450ca4ec93e44be9050ca6f94dd7, type: 2}
+  - {fileID: 11400000, guid: 2b6885cf544419b468998be499a92c67, type: 2}
+  - {fileID: 11400000, guid: 86e07dee83feee342822ab43d18bd2ec, type: 2}
+  - {fileID: 11400000, guid: 3219b0801a515774984d14420b817c58, type: 2}

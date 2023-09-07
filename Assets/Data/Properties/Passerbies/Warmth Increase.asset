@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ebd07f722e91644489bc17b18f6b3ca, type: 3}
-  m_Name: Player Vertical Velocity
+  m_Name: Warmth Increase
   m_EditorClassIdentifier: 
-  value: 5.1
-  min: 1
-  max: 10
+  value: 0
+  min: 0
+  max: 100

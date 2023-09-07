@@ -1,6 +1,6 @@
 {
   "name": "com.ablic.reactiveproperties",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "displayName": "Reactive Properties",
   "description": "Simple implementation of reactive properties based on Scriptable Objects",
   "unity": "2022.3",
@@ -8,8 +8,6 @@
   "documentationUrl": "",
   "changelogUrl": "",
   "licensesUrl": "",
-  "dependencies": {
-  },
   "keywords": [
     "keyword1",
     "keyword2",

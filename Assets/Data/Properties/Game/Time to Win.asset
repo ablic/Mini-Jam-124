@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ebd07f722e91644489bc17b18f6b3ca, type: 3}
-  m_Name: Max Horizontal Velocity
+  m_Script: {fileID: 11500000, guid: caba1b4f4eea96d4d92f83520a445aed, type: 3}
+  m_Name: Time to Win
   m_EditorClassIdentifier: 
-  value: 1
+  value: 70
   min: 1
-  max: 10
+  max: 120

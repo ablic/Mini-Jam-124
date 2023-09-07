@@ -10,7 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3e5f56047a5b6e842bf3c9b29e0e5359, type: 3}
-  m_Name: Player Interaction Keys
+  m_Name: Passerbies
   m_EditorClassIdentifier: 
   <Properties>k__BackingField:
-  - {fileID: 11400000, guid: 97b0c5da66d354b42b2d8f69904d25e4, type: 2}
+  - {fileID: 11400000, guid: 8fe948d29a9f646408ab3af4c684d2a1, type: 2}
+  - {fileID: 11400000, guid: a7d14e8f61adeae4f9a672ce85e0ffea, type: 2}
+  - {fileID: 11400000, guid: 0dd2d9af4970a6e4dbf8f50f8f2b3d61, type: 2}
+  - {fileID: 11400000, guid: 595b0e2ed80523145be70f6d8f4213cb, type: 2}

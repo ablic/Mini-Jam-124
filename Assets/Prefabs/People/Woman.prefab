@@ -222,6 +222,7 @@ MonoBehaviour:
   cargo: {fileID: 6527517524582203782}
   minHorizontalVelocity: {fileID: 11400000, guid: 0dd2d9af4970a6e4dbf8f50f8f2b3d61, type: 2}
   maxHorizontalVelocity: {fileID: 11400000, guid: 595b0e2ed80523145be70f6d8f4213cb, type: 2}
+  warmthIncrease: {fileID: 11400000, guid: 31133493b9dcedb4c8da577670a4661a, type: 2}
   favoriteItem: {fileID: 11400000, guid: f8f3419d68f9bee47ba4dc22be4c73cb, type: 2}
   heartParticles: {fileID: 6734940394471218316}
   itemReceivingSounds:
