@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using ReactiveProperties;
+using System;
 
 public class Warmth : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class Warmth : MonoBehaviour
     [SerializeField] private Slider slider;
     [SerializeField] private Image fill;
 
+    public event Action<float> Changed;
+
     public float Value
     {
         get
@@ -21,6 +24,7 @@ public class Warmth : MonoBehaviour
         set
         {
             this.value = value;
+            Changed?.Invoke(value);
             slider.value = this.value;
             fill.color = colorGradient.Evaluate(this.value);
         }
@@ -33,9 +37,9 @@ public class Warmth : MonoBehaviour
 
         Value -= reduction.Value * Time.deltaTime;
 
-        if (value >= 1f)
-            GameManager.Instance.Win();
-        else if (Value <= 0f)
+        /*if (value >= 1f)
+            GameManager.Instance.Win();*/
+        if (Value <= 0f)
             GameManager.Instance.GameOver();
     }
 }

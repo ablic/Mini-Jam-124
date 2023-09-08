@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ebd07f722e91644489bc17b18f6b3ca, type: 3}
-  m_Name: Max Spawn Period
+  m_Script: {fileID: 11500000, guid: 3f2e570ed537d6947b87dedae0b22cc2, type: 3}
+  m_Name: Cold Color
   m_EditorClassIdentifier: 
-  value: 1.58
-  min: 0.1
-  max: 5
+  value: {r: 0, g: 0.3818183, b: 1, a: 0.29803923}

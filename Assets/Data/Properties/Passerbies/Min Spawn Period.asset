@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ebd07f722e91644489bc17b18f6b3ca, type: 3}
   m_Name: Min Spawn Period
   m_EditorClassIdentifier: 
-  value: 0.1
+  value: 0.98
   min: 0.1
   max: 5

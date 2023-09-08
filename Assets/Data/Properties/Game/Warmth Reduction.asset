@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ebd07f722e91644489bc17b18f6b3ca, type: 3}
   m_Name: Warmth Reduction
   m_EditorClassIdentifier: 
-  value: 0.2128
+  value: 0.0548
   min: 0.01
   max: 0.25

@@ -22,8 +22,6 @@ namespace ReactiveProperties.Editor
                 foreach (var obj in cachedSerializedObjects.Values)
                     obj.Update();
             };
-
-            Debug.Log("UNDO");
         }
 
         public override void OnInspectorGUI()

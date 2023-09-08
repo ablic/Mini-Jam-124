@@ -11,6 +11,8 @@ public class Passerby : Character, IInteractable
     [SerializeField] private GameObject heartParticles;
     [SerializeField] private AudioClip[] itemReceivingSounds;
 
+    private bool isHappy = false;
+
     public event System.Action Interacted;
 
     public Transform Transform => transform;
@@ -30,19 +32,17 @@ public class Passerby : Character, IInteractable
 
     public bool TryInteract(Player player)
     {
-        if (player.CarriedItem != null && CarriedItem == null && 
-            (favoriteItem == player.CarriedItem || favoriteItem == null))
-        {
-            PickUp(player.CarriedItem);
-            player.Warmth.Value += warmthIncrease.Value;
-            player.Drop();
-            player.PlaySound(itemReceivingSounds.GetRandomElement());
-            heartParticles.SetActive(true);
-            Interacted?.Invoke();
+        if (isHappy || favoriteItem != null && favoriteItem != player.CarriedItem)
+            return false;
 
-            return true;
-        }
+        PickUp(player.CarriedItem);
+        player.Warmth.Value += warmthIncrease.Value;
+        player.Drop();
+        player.PlaySound(itemReceivingSounds.GetRandomElement());
+        heartParticles.SetActive(true);
+        Interacted?.Invoke();
+        isHappy = true;
 
-        return false;
+        return true;
     }
 }
