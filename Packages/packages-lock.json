@@ -1,10 +1,11 @@
 {
   "dependencies": {
     "com.ablic.reactiveproperties": {
-      "version": "file:ReactiveProperties",
+      "version": "https://github.com/ablic/unity-reactive-properties.git",
       "depth": 0,
-      "source": "embedded",
-      "dependencies": {}
+      "source": "git",
+      "dependencies": {},
+      "hash": "a1b27913c3650996ef1abc3d09386ec49e2c7de5"
     },
     "com.unity.2d.animation": {
       "version": "9.0.3",

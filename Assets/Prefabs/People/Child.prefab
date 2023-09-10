@@ -304,9 +304,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cargo: {fileID: 1499625331526822398}
-  minHorizontalVelocity: {fileID: 11400000, guid: 0dd2d9af4970a6e4dbf8f50f8f2b3d61, type: 2}
-  maxHorizontalVelocity: {fileID: 11400000, guid: 595b0e2ed80523145be70f6d8f4213cb, type: 2}
-  warmthIncrease: {fileID: 11400000, guid: 31133493b9dcedb4c8da577670a4661a, type: 2}
+  config: {fileID: 11400000, guid: e505dc8e620ae3b4084901e2effb751d, type: 2}
   favoriteItem: {fileID: 11400000, guid: 22798ecf508021c4f8c98ff6b0b9fabc, type: 2}
   heartParticles: {fileID: 4555524001961706414}
   itemReceivingSounds:

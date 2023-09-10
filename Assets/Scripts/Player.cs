@@ -1,4 +1,3 @@
-using ReactiveProperties;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,10 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class Player : Character
 {
-    [SerializeField] private FloatProperty horizontalVelocity;
-    [SerializeField] private FloatProperty verticalVelocity;
-    [SerializeField] private FloatProperty interactionRange;
-    [SerializeField] private PropertySet playerInteractionKeys;
+    [SerializeField] private GameConfig config;
     [SerializeField] private Warmth warmth;
     [SerializeField] private CircleCollider2D interactionRangeCollider;
 
@@ -22,9 +18,9 @@ public class Player : Character
     {
         get
         {
-            /*foreach (KeyCodeProperty propoerty in playerInteractionKeys.Properties)
-                if (Input.GetKeyDown(propoerty.Value))
-                    return true;*/
+            foreach (var keyCode in config.PlayerInteractionKeys)
+                if (Input.GetKeyDown(keyCode))
+                    return true;
 
             return false;
         }
@@ -59,7 +55,21 @@ public class Player : Character
     {
         base.Awake();
         audioSource = GetComponent<AudioSource>();
-        UpdateInteractionRange();
+    }
+
+    private void OnEnable()
+    {
+        config.PlayerInteractionRange.Changed += UpdateInteractionRadius;
+    }
+
+    private void OnDisable()
+    {
+        config.PlayerInteractionRange.Changed -= UpdateInteractionRadius;
+    }
+
+    private void Start()
+    {
+        interactionRangeCollider.radius = config.PlayerInteractionRange.Value;
     }
 
     private void Update()
@@ -67,13 +77,8 @@ public class Player : Character
         if (Input.GetKeyDown(KeyCode.Escape))
             Application.Quit();
 
-        //if (AnyInteractionKeyPressed)
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (AnyInteractionKeyPressed)
             Interact();
-
-#if UNITY_EDITOR
-        UpdateInteractionRange();
-#endif
     }
 
     private void FixedUpdate()
@@ -83,8 +88,8 @@ public class Player : Character
             Input.GetAxisRaw("Vertical")).normalized;
 
         Move(new Vector2(
-            direction.x * horizontalVelocity.Value,
-            direction.y * verticalVelocity.Value));
+            direction.x * config.PlayerHorizontalVelocity,
+            direction.y * config.PlayerVerticalVelocity));
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -118,9 +123,9 @@ public class Player : Character
         audioSource.PlayOneShot(audioClip);
     }
 
-    private void UpdateInteractionRange()
+    private void UpdateInteractionRadius(float value)
     {
-        interactionRangeCollider.radius = interactionRange.Value;
+        interactionRangeCollider.radius = value;
     }
 
 #if UNITY_EDITOR

@@ -9,9 +9,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e5f56047a5b6e842bf3c9b29e0e5359, type: 3}
+  m_Script: {fileID: 11500000, guid: cf69dc7a7db35d34b853f23c66d5a406, type: 3}
   m_Name: Game Configuration
   m_EditorClassIdentifier: 
-  <Properties>k__BackingField:
-  - {fileID: 11400000, guid: 134c06fa6f5a9c24c9a0bfc820593c7b, type: 2}
-  - {fileID: 11400000, guid: 2d2f450ca4ec93e44be9050ca6f94dd7, type: 2}
+  <PlayerHorizontalVelocity>k__BackingField: 5
+  <PlayerVerticalVelocity>k__BackingField: 5
+  <PlayerInteractionRange>k__BackingField:
+    value: 1.5
+  <PlayerInteractionKeys>k__BackingField: 20000000
+  <WarmthDecreaseRate>k__BackingField: 0.1
+  <MinPasserbySpawnPeriod>k__BackingField: 1
+  <MaxPasserbySpawnPeriod>k__BackingField: 3
+  <MinPasserbySpeed>k__BackingField: 1
+  <MaxPasserbySpeed>k__BackingField: 3
+  <PasserbyWarmthIncrease>k__BackingField: 0.2
+  <WeatherAdditionalWarmthDecrease>k__BackingField: 0.1
+  <WeatherColdThreshold>k__BackingField: 0.6
+  <WeatherColdDuration>k__BackingField: 10
+  <WeatherColorSwitchDuration>k__BackingField: 2
+  <WeatherSwitchChanceAtThresholdValue>k__BackingField: 0.5
+  <WeatherSwitchChanceAtMaxValue>k__BackingField: 0.9
+  <TimeToWin>k__BackingField: 60

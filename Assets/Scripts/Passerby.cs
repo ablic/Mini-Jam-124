@@ -1,12 +1,9 @@
-using ReactiveProperties;
 using UnityEngine;
 
 [RequireComponent(typeof(CircleCollider2D))]
 public class Passerby : Character, IInteractable
 {
-    [SerializeField] private FloatProperty minHorizontalVelocity;
-    [SerializeField] private FloatProperty maxHorizontalVelocity;
-    [SerializeField] private FloatProperty warmthIncrease;
+    [SerializeField] private GameConfig config;
     [SerializeField] private Item favoriteItem;
     [SerializeField] private GameObject heartParticles;
     [SerializeField] private AudioClip[] itemReceivingSounds;
@@ -18,6 +15,7 @@ public class Passerby : Character, IInteractable
     public Transform Transform => transform;
 
     public Vector2 Direction { get; set; }
+    public float Speed { get; set; }
 
     private void Update()
     {
@@ -27,7 +25,7 @@ public class Passerby : Character, IInteractable
 
     private void FixedUpdate()
     {
-        Move(Direction);
+        Move(Direction * Speed);
     }
 
     public bool TryInteract(Player player)
@@ -36,7 +34,7 @@ public class Passerby : Character, IInteractable
             return false;
 
         PickUp(player.CarriedItem);
-        player.Warmth.Value += warmthIncrease.Value;
+        player.Warmth.Value += config.PasserbyWarmthIncrease;
         player.Drop();
         player.PlaySound(itemReceivingSounds.GetRandomElement());
         heartParticles.SetActive(true);

@@ -1,14 +1,14 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-using ReactiveProperties;
-using System;
 
 public class Warmth : MonoBehaviour
 {
+    [SerializeField]
     [Range(0f, 1f)]
-    [SerializeField] private float value = 0.5f;
-    [SerializeField] private FloatProperty reduction;
+    private float value = 0.5f;
+
+    [SerializeField] private GameConfig config;
     [SerializeField] private Gradient colorGradient;
     [SerializeField] private Slider slider;
     [SerializeField] private Image fill;
@@ -35,7 +35,7 @@ public class Warmth : MonoBehaviour
         if (GameManager.Instance.IsOver)
             return;
 
-        Value -= reduction.Value * Time.deltaTime;
+        Value -= config.WarmthDecreaseRate * Time.deltaTime;
 
         /*if (value >= 1f)
             GameManager.Instance.Win();*/

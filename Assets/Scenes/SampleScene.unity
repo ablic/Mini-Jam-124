@@ -1310,15 +1310,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e3f29f04acb07d4d83c223fa88c5d2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warmthReduction: {fileID: 11400000, guid: 2d2f450ca4ec93e44be9050ca6f94dd7, type: 2}
-  additionalWarmthReduction: {fileID: 11400000, guid: 1bbe65203c7287e469a2651a19e9ad57, type: 2}
-  coldThreshold: {fileID: 11400000, guid: 4b08d7e9e112e554ab6190e2b431a087, type: 2}
-  coldDuration: {fileID: 11400000, guid: 5f05d599b0a226c4fb6449a353f24a6c, type: 2}
-  colorSwitchDuration: {fileID: 11400000, guid: 8c59c90bcf145c447bb83f75f9d74456, type: 2}
-  normalColor: {fileID: 11400000, guid: 37195c32f899f4349912612690dbc877, type: 2}
-  coldColor: {fileID: 11400000, guid: be707dd73547fcf42980de23042df8c5, type: 2}
-  switchChanceAtThresholdValue: {fileID: 11400000, guid: 710d3ae6933b319489e8c826aedb1eed, type: 2}
-  switchChanceAtMaxValue: {fileID: 11400000, guid: dbf20bd76af341c42b1aab5413c04306, type: 2}
+  config: {fileID: 11400000, guid: e505dc8e620ae3b4084901e2effb751d, type: 2}
+  normalColor: {r: 1, g: 1, b: 1, a: 0}
+  coldColor: {r: 0, g: 0.24758244, b: 1, a: 0.29803923}
   warmth: {fileID: 618510741}
   weatherCurtain: {fileID: 1698393387}
   coldIndicator: {fileID: 1040077276}
@@ -1446,7 +1440,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value: 0.6
-  reduction: {fileID: 11400000, guid: 2d2f450ca4ec93e44be9050ca6f94dd7, type: 2}
+  config: {fileID: 11400000, guid: e505dc8e620ae3b4084901e2effb751d, type: 2}
   colorGradient:
     serializedVersion: 2
     key0: {r: 1, g: 1, b: 1, a: 1}
@@ -2054,10 +2048,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cargo: {fileID: 745026368}
-  horizontalVelocity: {fileID: 11400000, guid: 2b6885cf544419b468998be499a92c67, type: 2}
-  verticalVelocity: {fileID: 11400000, guid: 86e07dee83feee342822ab43d18bd2ec, type: 2}
-  interactionRange: {fileID: 11400000, guid: 3219b0801a515774984d14420b817c58, type: 2}
-  playerInteractionKeys: {fileID: 11400000, guid: c51b6f14e46045841a4ee98317482e5e, type: 2}
+  config: {fileID: 11400000, guid: e505dc8e620ae3b4084901e2effb751d, type: 2}
   warmth: {fileID: 618510741}
   interactionRangeCollider: {fileID: 777926776}
 --- !u!58 &777926776
@@ -2904,8 +2895,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63b42fb5af4fc1f42a2f130c35ff62ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToWin: {fileID: 11400000, guid: 134c06fa6f5a9c24c9a0bfc820593c7b, type: 2}
-  activeConfiguration: {fileID: 11400000, guid: e505dc8e620ae3b4084901e2effb751d, type: 2}
+  config: {fileID: 11400000, guid: e505dc8e620ae3b4084901e2effb751d, type: 2}
   timeToWinText: {fileID: 2026294802}
   music: {fileID: 41939152}
   winPanel: {fileID: 405192425}
@@ -3198,8 +3188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef615a3105832b64cb8275d5b29cdf55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minSpawnPeriod: {fileID: 11400000, guid: 8fe948d29a9f646408ab3af4c684d2a1, type: 2}
-  maxSpawnPeriod: {fileID: 11400000, guid: a7d14e8f61adeae4f9a672ce85e0ffea, type: 2}
+  config: {fileID: 11400000, guid: e505dc8e620ae3b4084901e2effb751d, type: 2}
   peoplePrefabs:
   - {fileID: 2984940670370000355, guid: d405bcb33f76e21419f0c38c6e6a125b, type: 3}
   - {fileID: 2984940670370000355, guid: a7771ae29cb5c9c4ab3cc91e6a14ab71, type: 3}
