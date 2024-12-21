@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Weather : MonoBehaviour
 {
     [SerializeField] private GameConfig config;
+    [SerializeField] private Snow snow;
     [SerializeField] private Color normalColor;
     [SerializeField] private Color warmthColor;
     [SerializeField] private Color coldColor;
@@ -58,6 +59,8 @@ public class Weather : MonoBehaviour
         warmthIndicator.SetActive(true);
         weatherCurtain.DOColor(warmthColor, colorSwitchDuration);
 
+        snow.SetWarmthEmission();
+
         for (float time = 0f; time < config.Weather.ColdDuration; time += Time.deltaTime)
         {
             warmth.Value += config.Weather.AdditionalWarmthIncrease * Time.deltaTime;
@@ -69,6 +72,8 @@ public class Weather : MonoBehaviour
         warmthCoroutine = null;
         skipWeather = false;
 
+        snow.SetNormalEmission();
+
         Debug.Log("Warmth end");
     }
 
@@ -78,6 +83,8 @@ public class Weather : MonoBehaviour
 
         coldIndicator.SetActive(true);
         weatherCurtain.DOColor(coldColor, colorSwitchDuration);
+
+        snow.SetColdEmission();
 
         for (float time = 0f; time < config.Weather.ColdDuration; time += Time.deltaTime)
         {
@@ -89,6 +96,8 @@ public class Weather : MonoBehaviour
         coldIndicator.SetActive(false);
         coldCoroutine = null;
         skipWeather = false;
+
+        snow.SetNormalEmission();
 
         Debug.Log("Cold end");
     }

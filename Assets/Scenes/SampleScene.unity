@@ -822,6 +822,7 @@ GameObject:
   - component: {fileID: 405554777}
   - component: {fileID: 405554779}
   - component: {fileID: 405554778}
+  - component: {fileID: 405554780}
   m_Layer: 0
   m_Name: Snow
   m_TagString: Untagged
@@ -5641,6 +5642,21 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!114 &405554780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405554776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0687eb35947a5548b939ecb4c52b726, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalEmission: 20
+  warmthEmission: 5
+  coldEmission: 50
 --- !u!1 &413584693
 GameObject:
   m_ObjectHideFlags: 0
@@ -6140,6 +6156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: e505dc8e620ae3b4084901e2effb751d, type: 2}
+  snow: {fileID: 405554780}
   normalColor: {r: 1, g: 1, b: 1, a: 0}
   warmthColor: {r: 0.9622642, g: 0.60435325, b: 0.06808472, a: 0.29803923}
   coldColor: {r: 0, g: 0.24758244, b: 1, a: 0.29803923}
