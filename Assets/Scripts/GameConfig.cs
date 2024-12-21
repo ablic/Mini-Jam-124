@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using ReactiveProperties;
 
 [CreateAssetMenu]
 public class GameConfig : ScriptableObject
@@ -19,8 +18,8 @@ public class GameConfig : ScriptableObject
     public float PlayerVerticalVelocity { get; private set; } = 5f;
 
     [field: SerializeField]
-    [field: RRange(0.1f, 5f)]
-    public ReactiveProperty<float> PlayerInteractionRange { get; private set; } = 1.5f;
+    [field: Range(0.1f, 5f)]
+    public float PlayerInteractionRange { get; private set; } = 1.5f;
 
     [field: SerializeField]
     public KeyCode[] PlayerInteractionKeys { get; private set; } = new KeyCode[] { KeyCode.Space };
@@ -104,7 +103,5 @@ public class GameConfig : ScriptableObject
 
         if (WeatherSwitchChanceAtThresholdValue > WeatherSwitchChanceAtMaxValue)
             WeatherSwitchChanceAtThresholdValue = WeatherSwitchChanceAtMaxValue;
-
-        PlayerInteractionRange.Update();
     }
 }

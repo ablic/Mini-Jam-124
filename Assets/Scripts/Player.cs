@@ -57,19 +57,9 @@ public class Player : Character
         audioSource = GetComponent<AudioSource>();
     }
 
-    private void OnEnable()
-    {
-        config.PlayerInteractionRange.Changed += UpdateInteractionRadius;
-    }
-
-    private void OnDisable()
-    {
-        config.PlayerInteractionRange.Changed -= UpdateInteractionRadius;
-    }
-
     private void Start()
     {
-        interactionRangeCollider.radius = config.PlayerInteractionRange.Value;
+        UpdateInteractionRadius(config.PlayerInteractionRange);
     }
 
     private void Update()
@@ -79,6 +69,10 @@ public class Player : Character
 
         if (AnyInteractionKeyPressed)
             Interact();
+
+#if UNITY_EDITOR
+        UpdateInteractionRadius(config.PlayerInteractionRange);
+#endif
     }
 
     private void FixedUpdate()
