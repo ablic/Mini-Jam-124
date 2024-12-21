@@ -17,6 +17,7 @@ public class Weather : MonoBehaviour
 
     private Coroutine warmthCoroutine;
     private Coroutine coldCoroutine;
+    private bool skipWeather = false;
 
     private void Start()
     {
@@ -30,20 +31,24 @@ public class Weather : MonoBehaviour
 
     private void TryStartWarmth()
     {
-        if (warmthCoroutine != null || warmth.Value > config.Weather.WarmthThreshold)
+        if (warmthCoroutine != null || coldCoroutine != null || warmth.Value > config.Weather.WarmthThreshold || skipWeather)
             return;
 
         if (Random.value < config.Weather.WarmthSwitchChance)
             warmthCoroutine = StartCoroutine(Warmth());
+
+        skipWeather = true;
     }
 
     private void TryStartCold()
     {
-        if (coldCoroutine != null || warmth.Value < config.Weather.ColdThreshold)
+        if (coldCoroutine != null || warmthCoroutine != null || warmth.Value < config.Weather.ColdThreshold || skipWeather)
             return;
 
         if (Random.value < config.Weather.ColdSwitchChance)
             coldCoroutine = StartCoroutine(Cold());
+
+        skipWeather = true;
     }
 
     private IEnumerator Warmth()
@@ -62,6 +67,7 @@ public class Weather : MonoBehaviour
         weatherCurtain.DOColor(normalColor, colorSwitchDuration);
         warmthIndicator.SetActive(false);
         warmthCoroutine = null;
+        skipWeather = false;
 
         Debug.Log("Warmth end");
     }
@@ -82,6 +88,7 @@ public class Weather : MonoBehaviour
         weatherCurtain.DOColor(normalColor, colorSwitchDuration);
         coldIndicator.SetActive(false);
         coldCoroutine = null;
+        skipWeather = false;
 
         Debug.Log("Cold end");
     }
