@@ -18,7 +18,7 @@ public class Player : Character
     {
         get
         {
-            foreach (var keyCode in config.PlayerInteractionKeys)
+            foreach (var keyCode in config.Player.InteractionKeys)
                 if (Input.GetKeyDown(keyCode))
                     return true;
 
@@ -59,7 +59,7 @@ public class Player : Character
 
     private void Start()
     {
-        UpdateInteractionRadius(config.PlayerInteractionRange);
+        UpdateInteractionRadius(config.Player.InteractionRange);
     }
 
     private void Update()
@@ -71,7 +71,7 @@ public class Player : Character
             Interact();
 
 #if UNITY_EDITOR
-        UpdateInteractionRadius(config.PlayerInteractionRange);
+        UpdateInteractionRadius(config.Player.InteractionRange);
 #endif
     }
 
@@ -82,8 +82,8 @@ public class Player : Character
             Input.GetAxisRaw("Vertical")).normalized;
 
         Move(new Vector2(
-            direction.x * config.PlayerHorizontalVelocity,
-            direction.y * config.PlayerVerticalVelocity));
+            direction.x * config.Player.HorizontalVelocity,
+            direction.y * config.Player.VerticalVelocity));
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

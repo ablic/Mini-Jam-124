@@ -41,12 +41,12 @@ public class PeopleSpawner : MonoBehaviour
             passerby.transform.position = spawnPoint.position;
             passerby.Direction = Vector2.left * Mathf.Sign(spawnPoint.position.x);
             passerby.Speed = Random.Range(
-                config.MinPasserbySpeed,
-                config.MaxPasserbySpeed);
+                config.Passerby.MinSpeed,
+                config.Passerby.MaxSpeed);
 
             yield return new WaitForSeconds(Random.Range(
-                config.MinPasserbySpawnPeriod,
-                config.MaxPasserbySpawnPeriod));
+                config.Passerby.MinSpawnPeriod,
+                config.Passerby.MaxSpawnPeriod));
         }
     }
 }

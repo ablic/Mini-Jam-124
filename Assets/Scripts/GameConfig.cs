@@ -4,104 +4,89 @@ using UnityEngine;
 [CreateAssetMenu]
 public class GameConfig : ScriptableObject
 {
-    private const string line = "---------------------------------------------------------------------------------------------------------------------";
-
-    #region Player
-    [field: Header("Player")]
-
-    [field: SerializeField]
-    [field: Range(0.1f, 10f)]
-    public float PlayerHorizontalVelocity { get; private set; } = 5f;
-
-    [field: SerializeField]
-    [field: Range(0.1f, 10f)]
-    public float PlayerVerticalVelocity { get; private set; } = 5f;
-
-    [field: SerializeField]
-    [field: Range(0.1f, 5f)]
-    public float PlayerInteractionRange { get; private set; } = 1.5f;
-
-    [field: SerializeField]
-    public KeyCode[] PlayerInteractionKeys { get; private set; } = new KeyCode[] { KeyCode.Space };
-    #endregion
-    [field: Header(line)]
-    #region Warmth
-    [field: Header("Warmth")]
-
-    [field: SerializeField]
-    [field: Range(0.01f, 0.25f)]
-    public float WarmthDecreaseRate { get; private set; } = 0.1f;
-    #endregion
-    [field: Header(line)]
-    #region Passerbies
-    [field: Header("Passerbies")]
-
-    [field: SerializeField]
-    [field: Range(0.1f, 5f)]
-    public float MinPasserbySpawnPeriod { get; private set; } = 1f;
-
-    [field: SerializeField]
-    [field: Range(0.1f, 5f)]
-    public float MaxPasserbySpawnPeriod { get; private set; } = 3f;
-
-    [field: SerializeField]
-    [field: Range(0.1f, 10f)]
-    public float MinPasserbySpeed { get; private set; } = 1f;
-
-    [field: SerializeField]
-    [field: Range(0.1f, 10f)]
-    public float MaxPasserbySpeed { get; private set; } = 3f;
-
-    [field: SerializeField]
-    [field: Range(0.03f, 0.5f)]
-    public float PasserbyWarmthIncrease { get; private set; } = 0.2f;
-    #endregion
-    [field: Header(line)]
-    #region Weather
-    [field: Header("Weather")]
-
-    [field: SerializeField]
-    [field: Range(0f, 0.5f)]
-    public float WeatherAdditionalWarmthDecrease { get; private set; } = 0.1f;
-
-    [field: SerializeField]
-    [field: Range(0f, 1f)]
-    public float WeatherColdThreshold { get; private set; } = 0.6f;
-
-    [field: SerializeField]
-    [field: Range(1f, 20f)]
-    public float WeatherColdDuration { get; private set; } = 10f;
-
-    [field: SerializeField]
-    [field: Range(0.5f, 5)]
-    public float WeatherColorSwitchDuration { get; private set; } = 2f;
-
-    [field: SerializeField]
-    [field: Range(0f, 1f)]
-    public float WeatherSwitchChanceAtThresholdValue { get; private set; } = 0.5f;
-
-    [field: SerializeField]
-    [field: Range(0f, 1f)]
-    public float WeatherSwitchChanceAtMaxValue { get; private set; } = 0.9f;
-    #endregion
-    [field: Header(line)]
-    #region Game
-    [field: Header("Game")]
-
-    [field: SerializeField]
-    [field: Range(10, 300)]
-    public int TimeToWin { get; private set; } = 60;
-    #endregion
-
-    private void OnValidate()
+    [Serializable]
+    public class PlayerModule
     {
-        if (MinPasserbySpawnPeriod > MaxPasserbySpawnPeriod)
-            MinPasserbySpawnPeriod = MaxPasserbySpawnPeriod;
+        [Range(0.1f, 10f)]
+        public float HorizontalVelocity = 5f;
 
-        if (MinPasserbySpeed > MaxPasserbySpeed)
-            MinPasserbySpeed = MaxPasserbySpeed;
+        [Range(0.1f, 10f)]
+        public float VerticalVelocity = 5f;
 
-        if (WeatherSwitchChanceAtThresholdValue > WeatherSwitchChanceAtMaxValue)
-            WeatherSwitchChanceAtThresholdValue = WeatherSwitchChanceAtMaxValue;
+        [Range(0.1f, 5f)]
+        public float InteractionRange = 1.5f;
+
+        public KeyCode[] InteractionKeys = new KeyCode[] { KeyCode.Space };
     }
+
+    [Serializable]
+    public class PasserbyModule
+    {
+        [Range(0.1f, 5f)]
+        public float MinSpawnPeriod = 1f;
+
+        [Range(0.1f, 5f)]
+        public float MaxSpawnPeriod = 3f;
+
+        [Range(0.1f, 10f)]
+        public float MinSpeed = 1f;
+
+        [Range(0.1f, 10f)]
+        public float MaxSpeed = 3f;
+
+        [Range(0.03f, 0.5f)]
+        public float WarmthIncrease = 0.2f;
+    }
+
+    [Serializable]
+    public class WarmthModule
+    {
+        [Range(0.01f, 0.25f)]
+        public float DecreaseRate = 0.1f;
+    }
+
+    [Serializable]
+    public class WeatherModule
+    {
+        [Header("Cold")]
+
+        [Range(0f, 0.5f)]
+        public float AdditionalColdDecrease = 0.05f;
+
+        [Range(0f, 1f)]
+        public float ColdThreshold = 0.7f;
+
+        [Range(1f, 20f)]
+        public float ColdDuration = 5f;
+
+        [Range(0f, 1f)]
+        public float ColdSwitchChance = 0.5f;
+
+        [Header("Warmth")]
+
+        [Range(0f, 0.5f)]
+        public float AdditionalWarmthIncrease = 0.05f;
+
+        [Range(0f, 1f)]
+        public float WarmthThreshold = 0.3f;
+
+        [Range(1f, 20f)]
+        public float WarmthDuration = 5f;
+
+        [Range(0f, 1f)]
+        public float WarmthSwitchChance = 0.5f;
+    }
+
+    [Serializable]
+    public class GameModule
+    {
+        [Range(10, 300)]
+        public int TimeToWin = 60;
+    }
+
+    public PlayerModule Player;
+    public PasserbyModule Passerby;
+    public WarmthModule Warmth;
+    public WeatherModule Weather;
+    public GameModule Game;
 }

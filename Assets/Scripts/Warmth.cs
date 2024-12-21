@@ -35,7 +35,7 @@ public class Warmth : MonoBehaviour
         if (GameManager.Instance.IsOver)
             return;
 
-        Value -= config.WarmthDecreaseRate * Time.deltaTime;
+        Value -= config.Warmth.DecreaseRate * Time.deltaTime;
 
         /*if (value >= 1f)
             GameManager.Instance.Win();*/

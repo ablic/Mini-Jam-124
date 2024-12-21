@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,69 +7,82 @@ public class Weather : MonoBehaviour
 {
     [SerializeField] private GameConfig config;
     [SerializeField] private Color normalColor;
+    [SerializeField] private Color warmthColor;
     [SerializeField] private Color coldColor;
     [SerializeField] private Warmth warmth;
     [SerializeField] private Image weatherCurtain;
+    [SerializeField] private GameObject warmthIndicator;
     [SerializeField] private GameObject coldIndicator;
+    [SerializeField] private float colorSwitchDuration = 1f;
 
+    private Coroutine warmthCoroutine;
     private Coroutine coldCoroutine;
-    private float startSwitchTime;
 
     private void Start()
     {
-        startSwitchTime = Time.time - config.WeatherColorSwitchDuration;
     }
 
     private void Update()
     {
-        float t = Mathf.InverseLerp(
-            startSwitchTime,
-            startSwitchTime + config.WeatherColorSwitchDuration,
-            Time.time);
-
-        if (coldCoroutine != null)
-        {
-            warmth.Value -= config.WeatherAdditionalWarmthDecrease * Time.deltaTime;
-
-            coldIndicator.SetActive(true);
-            weatherCurtain.color = Color.Lerp(normalColor, coldColor, t);
-        }
-        else
-        {
-            coldIndicator.SetActive(false);
-            weatherCurtain.color = Color.Lerp(coldColor, normalColor, t);
-        }
+        TryStartCold();
+        TryStartWarmth();
     }
 
-    private void OnEnable()
+    private void TryStartWarmth()
     {
-        warmth.Changed += OnWarmthChanged;
-    }
-
-    private void OnDisable()
-    {
-        warmth.Changed -= OnWarmthChanged;
-    }
-
-    private void OnWarmthChanged(float value)
-    {
-        if (value < config.WeatherColdThreshold || coldCoroutine != null)
+        if (warmthCoroutine != null || warmth.Value > config.Weather.WarmthThreshold)
             return;
 
-        float chance = Mathf.Lerp(
-            config.WeatherSwitchChanceAtThresholdValue,
-            config.WeatherSwitchChanceAtMaxValue, 
-            value);
+        if (Random.value < config.Weather.WarmthSwitchChance)
+            warmthCoroutine = StartCoroutine(Warmth());
+    }
 
-        if (Random.value < chance)
+    private void TryStartCold()
+    {
+        if (coldCoroutine != null || warmth.Value < config.Weather.ColdThreshold)
+            return;
+
+        if (Random.value < config.Weather.ColdSwitchChance)
             coldCoroutine = StartCoroutine(Cold());
+    }
+
+    private IEnumerator Warmth()
+    {
+        Debug.Log("Warmth start");
+
+        warmthIndicator.SetActive(true);
+        weatherCurtain.DOColor(warmthColor, colorSwitchDuration);
+
+        for (float time = 0f; time < config.Weather.ColdDuration; time += Time.deltaTime)
+        {
+            warmth.Value += config.Weather.AdditionalWarmthIncrease * Time.deltaTime;
+            yield return null;
+        }
+
+        weatherCurtain.DOColor(normalColor, colorSwitchDuration);
+        warmthIndicator.SetActive(false);
+        warmthCoroutine = null;
+
+        Debug.Log("Warmth end");
     }
 
     private IEnumerator Cold()
     {
-        startSwitchTime = Time.time;
-        yield return new WaitForSeconds(config.WeatherColdDuration);
-        startSwitchTime = Time.time;
+        Debug.Log("Cold start");
+
+        coldIndicator.SetActive(true);
+        weatherCurtain.DOColor(coldColor, colorSwitchDuration);
+
+        for (float time = 0f; time < config.Weather.ColdDuration; time += Time.deltaTime)
+        {
+            warmth.Value -= config.Weather.AdditionalColdDecrease * Time.deltaTime;
+            yield return null;
+        }
+
+        weatherCurtain.DOColor(normalColor, colorSwitchDuration);
+        coldIndicator.SetActive(false);
         coldCoroutine = null;
+
+        Debug.Log("Cold end");
     }
 }

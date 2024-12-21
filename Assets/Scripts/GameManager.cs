@@ -54,9 +54,9 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator Timer()
     {
-        timeToWinText.text = config.TimeToWin.ToString();
+        timeToWinText.text = config.Game.TimeToWin.ToString();
 
-        for (int time = config.TimeToWin - 1; time > 0; time--)
+        for (int time = config.Game.TimeToWin - 1; time > 0; time--)
         {
             yield return new WaitForSeconds(1f);
             timeToWinText.text = time.ToString();

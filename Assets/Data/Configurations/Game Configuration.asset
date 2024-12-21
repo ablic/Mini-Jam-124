@@ -12,21 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf69dc7a7db35d34b853f23c66d5a406, type: 3}
   m_Name: Game Configuration
   m_EditorClassIdentifier: 
-  <PlayerHorizontalVelocity>k__BackingField: 5
-  <PlayerVerticalVelocity>k__BackingField: 5
-  <PlayerInteractionRange>k__BackingField:
-    value: 1.5
-  <PlayerInteractionKeys>k__BackingField: 20000000
-  <WarmthDecreaseRate>k__BackingField: 0.1
-  <MinPasserbySpawnPeriod>k__BackingField: 1
-  <MaxPasserbySpawnPeriod>k__BackingField: 3
-  <MinPasserbySpeed>k__BackingField: 1
-  <MaxPasserbySpeed>k__BackingField: 3
-  <PasserbyWarmthIncrease>k__BackingField: 0.2
-  <WeatherAdditionalWarmthDecrease>k__BackingField: 0.1
-  <WeatherColdThreshold>k__BackingField: 0.6
-  <WeatherColdDuration>k__BackingField: 10
-  <WeatherColorSwitchDuration>k__BackingField: 2
-  <WeatherSwitchChanceAtThresholdValue>k__BackingField: 0.5
-  <WeatherSwitchChanceAtMaxValue>k__BackingField: 0.9
-  <TimeToWin>k__BackingField: 60
+  Player:
+    HorizontalVelocity: 5
+    VerticalVelocity: 5
+    InteractionRange: 1.5
+    InteractionKeys: 20000000
+  Passerby:
+    MinSpawnPeriod: 1
+    MaxSpawnPeriod: 3
+    MinSpeed: 1
+    MaxSpeed: 3
+    WarmthIncrease: 0.2
+  Warmth:
+    DecreaseRate: 0.1
+  Weather:
+    AdditionalColdDecrease: 0.05
+    ColdThreshold: 0.7
+    ColdDuration: 5
+    ColdSwitchChance: 0.5
+    AdditionalWarmthIncrease: 0.05
+    WarmthThreshold: 0.3
+    WarmthDuration: 5
+    WarmthSwitchChance: 0.5
+  Game:
+    TimeToWin: 60

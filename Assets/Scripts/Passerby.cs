@@ -34,7 +34,7 @@ public class Passerby : Character, IInteractable
             return false;
 
         PickUp(player.CarriedItem);
-        player.Warmth.Value += config.PasserbyWarmthIncrease;
+        player.Warmth.Value += config.Passerby.WarmthIncrease;
         player.Drop();
         player.PlaySound(itemReceivingSounds.GetRandomElement());
         heartParticles.SetActive(true);
